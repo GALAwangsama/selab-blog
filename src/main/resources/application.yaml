@@ -1,0 +1,17 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: selab-blog
+  datasource:
+    driver-class-name: ${blog.datasource.driver-class-name}
+    url: jdbc:mysql://${blog.datasource.host}:${blog.datasource.port}/${blog.datasource.database}?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+    username: ${blog.datasource.username}
+    password: ${blog.datasource.password}
+  jackson:
+    default-property-inclusion: non_null # JSON处理时忽略非空字段
+mybatis-plus:
+  type-aliases-package: com/selabBlog/pojo # 别名扫描包
+logging:
+  level:
+    com.hmdp: debug

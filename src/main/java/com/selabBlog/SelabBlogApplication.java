@@ -1,4 +1,4 @@
-package com.selab.selabblog;
+package com.selabBlog;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
