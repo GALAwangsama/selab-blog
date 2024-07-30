@@ -1,8 +1,12 @@
 server:
-  port: 8080
+  port: 8888
 spring:
   application:
     name: selab-blog
+  profiles:
+    active: dev
+  main:
+    allow-circular-references: true
   datasource:
     driver-class-name: ${blog.datasource.driver-class-name}
     url: jdbc:mysql://${blog.datasource.host}:${blog.datasource.port}/${blog.datasource.database}?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
