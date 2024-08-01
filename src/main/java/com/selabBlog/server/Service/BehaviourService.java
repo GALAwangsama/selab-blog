@@ -1,4 +1,7 @@
 package com.selabBlog.server.Service;
 
-public interface BehaviourService {
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.selabBlog.pojo.entity.Behaviour;
+
+public interface BehaviourService extends IService<Behaviour> {
 }

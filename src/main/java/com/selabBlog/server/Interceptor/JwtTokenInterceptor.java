@@ -1,6 +1,7 @@
 package com.selabBlog.server.Interceptor;
 
 import com.selabBlog.common.Utils.JwtUtil;
+import com.selabBlog.common.context.BaseContext;
 import com.selabBlog.common.properties.JwtProperties;
 
 import io.jsonwebtoken.Claims;
@@ -44,9 +45,9 @@ public class JwtTokenInterceptor implements HandlerInterceptor {
         try {
             log.info("jwt校验:{}", token);
             Claims claims = JwtUtil.parseJWT(jwtProperties.getSecretKey(), token);
-            Long Id = Long.valueOf(claims.get("id").toString());
+            Long userId = Long.valueOf(claims.get("userId").toString());
 
-//            BaseContext.setCurrentId(empId);
+            BaseContext.setCurrentId(userId);
             //3、通过，放行
             return true;
         } catch (Exception ex) {

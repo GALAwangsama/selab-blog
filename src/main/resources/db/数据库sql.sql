@@ -28,6 +28,7 @@ CREATE TABLE `article` (
   `publish_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `article_like` int DEFAULT 0 COMMENT '点赞数',
+  `comment_count` int DEFAULT 0 COMMENT '评论数',
   PRIMARY KEY (`article_id`)
 ) COMMENT='文章';
 

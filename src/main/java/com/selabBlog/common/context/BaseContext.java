@@ -1,5 +1,7 @@
 package com.selabBlog.common.context;
 
+
+//用于在线程中保存数据
 public class BaseContext {
 
     public static ThreadLocal<Long> threadLocal = new ThreadLocal<>();
