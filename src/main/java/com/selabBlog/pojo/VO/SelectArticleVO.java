@@ -6,7 +6,7 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class SelectByUserVO extends SelectVO{
+public class SelectArticleVO extends SelectVO{
 
     private Long userId;
 

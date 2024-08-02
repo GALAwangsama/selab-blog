@@ -1,6 +1,10 @@
 package com.selabBlog.pojo.DTO;
 
-public class isLikeDTO {
+
+import lombok.Data;
+
+@Data
+public class IsLikeDTO {
 
     private Long articleId;
 

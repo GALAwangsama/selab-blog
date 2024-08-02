@@ -4,7 +4,10 @@ package com.selabBlog.pojo.DTO;
 import lombok.Data;
 
 @Data
-public class SaveArticleDTO {
+public class UpdateDTO {
+
+    //文章id
+    private Long id;
 
     private String title;
 

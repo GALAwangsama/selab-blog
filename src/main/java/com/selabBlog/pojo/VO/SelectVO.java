@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class SelectVO {
 
-    private Long articleId;
+    private Long id;
 
     private String title;
 

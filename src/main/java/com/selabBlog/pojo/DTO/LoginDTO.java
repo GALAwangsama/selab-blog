@@ -1,5 +1,9 @@
 package com.selabBlog.pojo.DTO;
 
+
+import lombok.Data;
+
+@Data
 public class LoginDTO {
 
     private String code;
