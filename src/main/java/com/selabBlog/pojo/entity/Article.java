@@ -1,6 +1,8 @@
 package com.selabBlog.pojo.entity;
 
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
@@ -14,7 +16,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @EqualsAndHashCode
 public class Article {
-
+    @TableId(value = "id", type = IdType.AUTO)
     private Long articleId;
 
     private String title;
@@ -33,6 +35,6 @@ public class Article {
 
     private Integer articleLike;
 
-
+    private Integer commentCount;
 
 }

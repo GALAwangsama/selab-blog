@@ -1,5 +1,5 @@
-CREATE DATABASE  IF NOT EXISTS `selab-blog` ;
-USE `selab-blog`;
+CREATE DATABASE  IF NOT EXISTS `selab_blog` ;
+USE `selab_blog`;
 
 
 
