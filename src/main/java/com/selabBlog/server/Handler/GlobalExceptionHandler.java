@@ -1,6 +1,7 @@
 package com.selabBlog.server.Handler;
 
 import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;
+import com.selabBlog.common.exception.BaseException;
 import com.selabBlog.pojo.Result.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -27,7 +28,7 @@ public class GlobalExceptionHandler {
      * @return
      */
     @ExceptionHandler
-    public Result exceptionHandler(Exception ex){
+    public Result exceptionHandler(BaseException ex){
         log.error("异常信息：{}", ex.getMessage());
         return Result.error("未知异常");
     }
