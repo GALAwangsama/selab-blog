@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 @Data
 public class JwtProperties {
 
-    private String SecretKey;
-    private long Ttl;
+    private String SecretKey = "selab_blog";
+    private long Ttl = 86400000;//24小时
     private String TokenName;
 
 

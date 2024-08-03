@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class User {
 
-    @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "user_id",type = IdType.AUTO)
     private Long userId;
 
     private String userName;

@@ -6,7 +6,7 @@ USE `selab_blog`;
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user`  (
   `user_id` bigint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键，用户id',
-  `username` varchar(32) COLLATE utf8_bin NOT NULL COMMENT '用户名',
+  `user_name` varchar(32) COLLATE utf8_bin UNIQUE NOT NULL COMMENT '用户名',
   `password` varchar(128) NOT NULL COMMENT '密码',
   `phone` varchar(11)  NOT NULL COMMENT '手机号码',
   `email` varchar(20)   NOT NULL COMMENT '邮件',
@@ -15,6 +15,7 @@ CREATE TABLE `user`  (
   `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `status` int DEFAULT '1' COMMENT '是否启用，1启用，0禁用',
   PRIMARY KEY (`user_id`)
+
 ) COMMENT '用户表';
 
 
