@@ -12,6 +12,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
+import static com.selabBlog.common.constant.CommonConstant.UPLOAD_DIR;
 
 
 /**
@@ -32,13 +33,23 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
      */
     protected void addInterceptors(InterceptorRegistry registry) {
         log.info("开始注册拦截器...");
-        // 更改任务目录
+
         registry.addInterceptor(jwtTokenInterceptor)
                 .excludePathPatterns(
                         "/user/regist",
                         "/login",
                         "/captchaImage"
                 );
+
+    }
+
+
+    /**
+     * 设置静态资源映射
+     * @param registry
+     */
+    protected void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/uploads/**").addResourceLocations("file:"+UPLOAD_DIR);
 
     }
 
