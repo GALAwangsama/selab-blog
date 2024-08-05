@@ -38,7 +38,8 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
                 .excludePathPatterns(
                         "/user/regist",
                         "/login",
-                        "/captchaImage"
+                        "/captchaImage",
+                        "/common/upload"
                 );
 
     }

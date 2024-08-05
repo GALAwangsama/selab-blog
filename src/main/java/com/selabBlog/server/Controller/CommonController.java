@@ -23,7 +23,11 @@ import static com.selabBlog.common.constant.CommonConstant.*;
 @RequestMapping("/common")
 public class CommonController {
 
-    //TODO 文件上传
+    /**
+     * 文件上传
+      * @param file
+     * @return
+     */
     @PostMapping("/upload")
     public Result<FileVO> upload(@RequestBody MultipartFile file){
         //检测上传是否为空
