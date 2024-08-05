@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.selabBlog.server.Mapper.ArticleMapper">
+
+    <resultMap id="BaseResultMap" type="com.selabBlog.pojo.entity.Article">
+        <id property="articleId" column="article_id" jdbcType="BIGINT"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="content" column="content" jdbcType="VARCHAR"/>
+        <result property="userId" column="user_id" jdbcType="BIGINT"/>
+        <result property="image" column="image" jdbcType="VARCHAR"/>
+        <result property="publishTime" column="publish_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="articleLike" column="article_like" jdbcType="INTEGER"/>
+        <result property="commentCount" column="comment_count" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        article_id,title,content,
+        user_id,image,publish_time,
+        update_time,article_like,comment_count
+    </sql>
+    <!--分页查询所有文章-->
+    <select id="showLoad" resultType="map">
+        select article_id id,title,content,username,image,article_like articleLike
+        from article a
+                 left join user u on u.user_id = a.user_id
+    </select>
+    <!--显示文章详情-->
+    <select id="showArticleDetails" resultType="com.selabBlog.pojo.VO.SelectVO">
+        select article_id id,title,content,
+               a.user_id,username,image,publish_time publishTime,
+               article_like articleLike,comment_count commentCount
+        from article a
+                 left join user u on a.user_id = u.user_id
+        where article_id = #{aid}
+    </select>
+    <!--查询用户所有文章-->
+    <select id="showSelectByUserId" resultType="map">
+        select article_id id,title,content,
+               username,image,article_like articleLike
+        from article a
+                 left join user u on u.user_id = a.user_id
+        where a.user_id = #{uid}
+    </select>
+</mapper>

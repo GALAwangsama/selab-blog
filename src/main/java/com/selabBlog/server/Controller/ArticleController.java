@@ -4,15 +4,12 @@ package com.selabBlog.server.Controller;
 import com.selabBlog.pojo.DTO.SaveArticleDTO;
 import com.selabBlog.pojo.DTO.UpdateDTO;
 import com.selabBlog.pojo.Result.Result;
-
 import com.selabBlog.pojo.VO.SelectAllVO;
 import com.selabBlog.pojo.VO.SelectArticleVO;
 import com.selabBlog.pojo.VO.SelectVO;
 import com.selabBlog.server.Service.ArticleService;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.annotations.Delete;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,7 +18,6 @@ import java.util.List;
 @Slf4j
 @RequestMapping("/article")
 public class ArticleController {
-
     @Resource
     private ArticleService articleService;
 
@@ -29,13 +25,18 @@ public class ArticleController {
     //TODO 查询所有文章
     @GetMapping("/load")
     public Result<List<SelectVO>> load(){
-        return null;
+
+        Result result = articleService.load();
+        return result;
     }
 
     //TODO 查询用户的所有文章
-    @GetMapping("/selectByUserId/{id}")
-    public  Result<List<SelectVO>> selectByUserId(@PathVariable Long id){
-        return null;
+    @GetMapping("/selectByUserId/{uid}")
+    public  Result<List<SelectVO>> selectByUserId(@PathVariable Long uid){
+
+        Result result = articleService.selectByUserId(uid);
+        return result;
+
     }
 
     //TODO 新增文章
@@ -63,9 +64,12 @@ public class ArticleController {
     }
 
     //TODO 查询文章详情
-    @GetMapping("/articleDetails/{id}")
-    public Result<SelectAllVO> details(@PathVariable Long id){
-        return null;
+    @GetMapping("/articleDetails/{aid}")
+    public Result<SelectAllVO> details(@PathVariable Long aid){
+
+        Result result = articleService.articleDetails(aid);
+        return result;
+
     }
 
 
