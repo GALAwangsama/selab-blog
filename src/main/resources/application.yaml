@@ -12,19 +12,8 @@ spring:
     url: jdbc:mysql://${blog.datasource.host}:${blog.datasource.port}/${blog.datasource.database}?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
     username: ${blog.datasource.username}
     password: ${blog.datasource.password}
-
-
-
-
   jackson:
     default-property-inclusion: non_null # JSON处理时忽略非空字段
-  data:
-    #redis配置，无redis的将其注释即可
-    redis:
-      password: ${blog.redis.password}
-      host: ${blog.redis.host}
-      port: ${blog.redis.port}
-      database: ${blog.redis.database}
 mybatis-plus:
   type-aliases-package: com/selabBlog/pojo # 别名扫描包
 logging:
