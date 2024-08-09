@@ -1,8 +1,6 @@
 package com.selabBlog.server.Service.Impl;
 
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.selabBlog.pojo.Result.Result;
 import com.selabBlog.pojo.VO.SelectVO;
@@ -13,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> implements ArticleService {
@@ -20,18 +19,16 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     private ArticleMapper articleMapper;
     @Override
     public Result load() {
-        IPage<Article> page = new Page<>(1, 10);
-        //分页查询
-        articleMapper.showLoad(page);
+        List<Map> map = articleMapper.showLoad();
 
-        //返回查询结果
-        List<Article> records = page.getRecords();
 
-        return Result.success(records);
+        return Result.success(map);
+
     }
 
     @Override
     public Result articleDetails(Long aid) {
+
         SelectVO data =  articleMapper.showArticleDetails(aid);
 
         return Result.success(data);
@@ -39,12 +36,8 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
     @Override
     public Result selectByUserId(Long uid) {
-        IPage<Article> page = new Page<>(1, 10);
-        //分页查询
-        articleMapper.showSelectByUserId(page, uid);
 
-        //返回查询结果
-        List<Article> records = page.getRecords();
-        return Result.success(records);
+        return Result.success(articleMapper.showSelectByUserId(uid));
+
     }
 }
