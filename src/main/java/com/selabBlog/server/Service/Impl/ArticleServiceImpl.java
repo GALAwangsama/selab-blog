@@ -3,6 +3,7 @@ package com.selabBlog.server.Service.Impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.selabBlog.pojo.Result.Result;
+import com.selabBlog.pojo.VO.SelectArticleVO;
 import com.selabBlog.pojo.VO.SelectVO;
 import com.selabBlog.pojo.entity.Article;
 import com.selabBlog.server.Mapper.ArticleMapper;
@@ -40,4 +41,15 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         return Result.success(articleMapper.showSelectByUserId(uid));
 
     }
+
+    @Override
+    public Result selectByArticleId(Long id) {
+        SelectArticleVO selectArticleVO = articleMapper.selectByArticleId(id);
+        if (selectArticleVO == null){
+            return Result.error("选择文章失败");
+        }else {
+            return Result.success(selectArticleVO);
+        }
+    }
+
 }
