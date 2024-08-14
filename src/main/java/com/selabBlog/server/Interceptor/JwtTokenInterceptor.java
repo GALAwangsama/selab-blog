@@ -1,10 +1,7 @@
 package com.selabBlog.server.Interceptor;
 
-import com.selabBlog.common.Utils.JwtUtil;
 import com.selabBlog.common.context.BaseContext;
 import com.selabBlog.common.properties.JwtProperties;
-
-import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -42,18 +39,21 @@ public class JwtTokenInterceptor implements HandlerInterceptor {
         String token = request.getHeader(jwtProperties.getTokenName());
 
         //2、校验令牌
-        try {
-            log.info("jwt校验:{}", token);
-            Claims claims = JwtUtil.parseJWT(jwtProperties.getSecretKey(), token);
-            Long userId = Long.valueOf(claims.get("userId").toString());
-
-            BaseContext.setCurrentId(userId);
-            //3、通过，放行
-            return true;
-        } catch (Exception ex) {
-            //4、不通过，响应401状态码
-            response.setStatus(401);
-            return false;
-        }
+        //TODO token拿不到，我把userid值默认设为了1   整合时要修改
+//        try {
+//            log.info("jwt校验:{}", token);
+//            Claims claims = JwtUtil.parseJWT(jwtProperties.getSecretKey(), token);
+//            Long userId = Long.valueOf(claims.get("userId").toString());
+//
+//            BaseContext.setCurrentId(userId);
+//            //3、通过，放行
+//            return true;
+//        } catch (Exception ex) {
+//            //4、不通过，响应401状态码
+//            response.setStatus(401);
+//            return false;
+//        }
+        BaseContext.setCurrentId(1L);
+        return true;
     }
 }

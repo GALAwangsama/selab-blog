@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Behaviour {
-    @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "behaviour_id", type = IdType.AUTO)
     private Long behaviourId;
 
     private Long articleId;

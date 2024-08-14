@@ -1,6 +1,8 @@
 package com.selabBlog.server.Controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.selabBlog.common.context.BaseContext;
 import com.selabBlog.pojo.DTO.AddCommentDTO;
 import com.selabBlog.pojo.DTO.IsLikeDTO;
 import com.selabBlog.pojo.Result.Result;
@@ -37,26 +39,44 @@ public class BehaviourController {
     @PostMapping("/likeOperate")
     public Result isLike(@RequestBody IsLikeDTO isLikeDTO){
 
-        if(isLikeDTO.getIsLike() == 1) {
-            Behaviour isLike = behaviourService.getById(isLikeDTO.getArticleId());
-            Article article = new Article();
-            article.setArticleId(isLike.getArticleId());
-            article.setArticleLike(isLike.getIsLike() + 1);
-            if(articleService.updateById(article)){
-                return Result.success();
-            }
-        }
-        Behaviour isLike = behaviourService.getById(isLikeDTO.getArticleId());
-        Article article = new Article();
-        article.setArticleId(isLike.getArticleId());
-        article.setArticleLike(isLike.getIsLike() - 1);
-        if(articleService.updateById(article)){
+        //判断behaviour中是否有对应数据
+        LambdaQueryWrapper<Behaviour> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(Behaviour::getArticleId,isLikeDTO.getArticleId()).eq(Behaviour::getUserId, BaseContext.getCurrentId());
+        Behaviour behaviour = behaviourService.getOne(wrapper);
+
+        //新的用户行为数据
+        Behaviour newBehaviour = new Behaviour();
+        newBehaviour.setArticleId(isLikeDTO.getArticleId());
+        newBehaviour.setIsLike(isLikeDTO.getIsLike());
+        newBehaviour.setUserId(BaseContext.getCurrentId());
+
+        //若没有则添加数据
+        if (behaviour == null) {
+            behaviourService.save(newBehaviour);
+
+            //增加article的点赞值
+            Article article = articleService.getById(isLikeDTO.getArticleId());
+            article.setArticleLike(article.getArticleLike() + 1);
+            articleService.updateById(article);
             return Result.success();
         }
-        Result<Object> result = new Result<>();
-        result.setCode(501);
-        result.setMsg("");
-        return result;
+
+        //若有则更改数据
+        behaviour.setIsLike(isLikeDTO.getIsLike());
+        if (isLikeDTO.getIsLike() == 1) {
+            behaviourService.updateById(behaviour);
+            //增加article的点赞值
+            Article article = articleService.getById(isLikeDTO.getArticleId());
+            article.setArticleLike(article.getArticleLike() + 1);
+            articleService.updateById(article);
+            return Result.success();
+        }else {
+            //减少article的点赞值
+            Article article = articleService.getById(isLikeDTO.getArticleId());
+            article.setArticleLike(article.getArticleLike() - 1);
+            articleService.updateById(article);
+            return Result.success();
+        }
     }
 
     //TODO 查看所有评论
@@ -65,21 +85,22 @@ public class BehaviourController {
         List<Comment> comments = commentService.list();
         List<SelectCommentVO> selectCommentVOList = new ArrayList<>();
         for(Comment comment : comments){
-            selectCommentVOList.add(commentService.byUseridToSelectCommentVo(comment.getUserId()));
+            SelectCommentVO selectCommentVO = commentService.byUseridToSelectCommentVo(comment.getUserId());
+            selectCommentVO.setComment(comment.getCommentBody());
+            selectCommentVO.setCreateTime(comment.getCreateTime());
+            selectCommentVOList.add(selectCommentVO);
         }
         return Result.success(selectCommentVOList);
     }
 
     //TODO 新增评论
-    //此处请求数据少一个userid，暂定为手动输入,值为1
     @PostMapping("/addComment")
     public Result addComment(@RequestBody AddCommentDTO addCommentDTO){
         Comment comment = new Comment();
         comment.setCommentBody(addCommentDTO.getComment());
         comment.setArticleId(addCommentDTO.getArticleId());
         comment.setCreateTime(LocalDateTime.now());
-        //此处userid定为1
-        comment.setUserId(1L);
+        comment.setUserId(BaseContext.getCurrentId());
         if(commentService.save(comment)){
             return Result.success();
         };

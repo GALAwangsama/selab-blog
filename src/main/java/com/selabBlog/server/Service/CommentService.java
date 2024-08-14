@@ -8,8 +8,9 @@ public interface CommentService extends IService<Comment> {
     /**
      * 通过用户id查询 用户评论信息
      * 返回SelectCommentVo
+     *
      * @param userId
-     * @return
+     * @return SelectCommentVo
      */
     SelectCommentVO byUseridToSelectCommentVo(Long userId);
 }

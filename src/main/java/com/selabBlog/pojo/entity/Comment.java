@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Comment {
-    @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "comment_id", type = IdType.AUTO)
     private Long commentId;
 
     private Long articleId;
