@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @Slf4j
@@ -39,7 +40,7 @@ public class BehaviourController {
     //TODO 点赞，取消点赞
     @PostMapping("/likeOperate")
     public Result isLike(@RequestBody IsLikeDTO isLikeDTO){
-        if(!(isLikeDTO.getIsLike() >= 0) || !(isLikeDTO.getArticleId() >= 0)){
+        if(!(isLikeDTO.getIsLike() == 0) && !(isLikeDTO.getIsLike() == 1) || !(isLikeDTO.getArticleId() > 0)){
             throw new InputException();
         }
 
@@ -76,6 +77,7 @@ public class BehaviourController {
             articleService.updateById(article);
             return Result.success();
         }else {
+            behaviourService.updateById(behaviour);
             //减少article的点赞值
             Article article = articleService.getById(isLikeDTO.getArticleId());
             article.setArticleLike(article.getArticleLike() - 1);
@@ -87,14 +89,17 @@ public class BehaviourController {
     //TODO 查看所有评论
     @GetMapping("/listComment/{id}")
     public Result<List<SelectCommentVO>> selectComment(@PathVariable Long id){
-        if(!(id >= 0)){
+        if(!(id > 0)){
             throw new InputException();
         }
 
         List<Comment> comments = commentService.list();
         List<SelectCommentVO> selectCommentVOList = new ArrayList<>();
         for(Comment comment : comments){
-            SelectCommentVO selectCommentVO = commentService.byUseridToSelectCommentVo(comment.getUserId());
+            if(!Objects.equals(comment.getUserId(), id)){
+                continue;
+            }
+            SelectCommentVO selectCommentVO = commentService.byUseridToSelectCommentVo(id);
             selectCommentVO.setComment(comment.getCommentBody());
             selectCommentVO.setCreateTime(comment.getCreateTime());
             selectCommentVOList.add(selectCommentVO);
@@ -105,7 +110,7 @@ public class BehaviourController {
     //TODO 新增评论
     @PostMapping("/addComment")
     public Result addComment(@RequestBody AddCommentDTO addCommentDTO){
-        if(!(addCommentDTO.getArticleId() >= 0)){
+        if(!(addCommentDTO.getArticleId() > 0)){
             throw new InputException();
         }
         //增加文章的评论数
@@ -126,7 +131,7 @@ public class BehaviourController {
     //TODO 删除评论
     @DeleteMapping("/deleteComment/{id}")
     public Result deleteComment(@PathVariable Long id){
-        if(!(id >= 0)){
+        if(!(id > 0)){
             throw new InputException();
         }
 

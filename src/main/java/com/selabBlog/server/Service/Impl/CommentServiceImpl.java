@@ -15,14 +15,13 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
     @Resource
     private UserService userService;
 
-
     @Override
     public SelectCommentVO byUseridToSelectCommentVo(Long userId) {
         Comment user = getById(userId);
         SelectCommentVO selectCommentVO = new SelectCommentVO();
         User newuser = userService.getById(userId);
         selectCommentVO.setUserName(newuser.getUserName());
-        selectCommentVO.setUserId(user.getUserId());
+        selectCommentVO.setUserId(userId);
 
         return selectCommentVO;
     }
