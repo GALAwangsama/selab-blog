@@ -27,4 +27,11 @@ public interface ArticleService extends IService<Article>{
      * @return
      */
     Result selectByUserId(Long uid);
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+    Result selectByArticleId(Long id);
 }
