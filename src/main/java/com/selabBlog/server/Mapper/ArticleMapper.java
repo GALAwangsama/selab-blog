@@ -1,6 +1,7 @@
 package com.selabBlog.server.Mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.selabBlog.pojo.VO.SelectArticleVO;
 import com.selabBlog.pojo.VO.SelectVO;
 import com.selabBlog.pojo.entity.Article;
 import org.apache.ibatis.annotations.Param;
@@ -13,4 +14,5 @@ public interface ArticleMapper extends BaseMapper<Article> {
     Map showSelectByUserId(@Param("uid") long uid);
     SelectVO showArticleDetails(Long aid);
 
+    SelectArticleVO selectByArticleId(Long id);
 }
