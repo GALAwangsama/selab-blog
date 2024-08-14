@@ -3,6 +3,7 @@ package com.selabBlog.server.Controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.selabBlog.common.context.BaseContext;
+import com.selabBlog.common.exception.InputException;
 import com.selabBlog.pojo.DTO.AddCommentDTO;
 import com.selabBlog.pojo.DTO.IsLikeDTO;
 import com.selabBlog.pojo.Result.Result;
@@ -38,6 +39,10 @@ public class BehaviourController {
     //TODO 点赞，取消点赞
     @PostMapping("/likeOperate")
     public Result isLike(@RequestBody IsLikeDTO isLikeDTO){
+        if(!(isLikeDTO.getIsLike() >= 0) || !(isLikeDTO.getArticleId() >= 0)){
+            throw new InputException();
+        }
+
 
         //判断behaviour中是否有对应数据
         LambdaQueryWrapper<Behaviour> wrapper = new LambdaQueryWrapper<>();
@@ -82,6 +87,10 @@ public class BehaviourController {
     //TODO 查看所有评论
     @GetMapping("/listComment/{id}")
     public Result<List<SelectCommentVO>> selectComment(@PathVariable Long id){
+        if(!(id >= 0)){
+            throw new InputException();
+        }
+
         List<Comment> comments = commentService.list();
         List<SelectCommentVO> selectCommentVOList = new ArrayList<>();
         for(Comment comment : comments){
@@ -96,23 +105,40 @@ public class BehaviourController {
     //TODO 新增评论
     @PostMapping("/addComment")
     public Result addComment(@RequestBody AddCommentDTO addCommentDTO){
+        if(!(addCommentDTO.getArticleId() >= 0)){
+            throw new InputException();
+        }
+        //增加文章的评论数
+        Article article = articleService.getById(addCommentDTO.getArticleId());
+        article.setCommentCount(article.getCommentCount() + 1);
+        articleService.updateById(article);
+
+        //增加评论
         Comment comment = new Comment();
         comment.setCommentBody(addCommentDTO.getComment());
         comment.setArticleId(addCommentDTO.getArticleId());
         comment.setCreateTime(LocalDateTime.now());
         comment.setUserId(BaseContext.getCurrentId());
-        if(commentService.save(comment)){
-            return Result.success();
-        };
-        return Result.error("501");
+        commentService.save(comment);
+        return Result.success();
     }
 
     //TODO 删除评论
     @DeleteMapping("/deleteComment/{id}")
     public Result deleteComment(@PathVariable Long id){
-        if(commentService.removeById(id)){
-            return Result.success();
+        if(!(id >= 0)){
+            throw new InputException();
         }
-        return Result.error("501");
+
+        //减少文章的评论数
+        Article article = articleService.getById(id);
+        article.setCommentCount(article.getCommentCount() - 1);
+        articleService.updateById(article);
+
+        //删除评论
+        commentService.removeById(id);
+        return Result.success();
+
+
     }
 }

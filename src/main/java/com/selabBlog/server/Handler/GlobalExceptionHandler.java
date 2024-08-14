@@ -1,7 +1,7 @@
 package com.selabBlog.server.Handler;
 
-import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;
 import com.selabBlog.common.exception.BaseException;
+import com.selabBlog.common.exception.InputException;
 import com.selabBlog.pojo.Result.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -51,6 +51,18 @@ public class GlobalExceptionHandler {
         }else{
             return Result.error(UNKNOWN_ERROR);
         }
+    }
+
+    /**
+     * 处理输入数据异常
+     * @return result
+     */
+    @ExceptionHandler(InputException.class)
+    public Result InputExceptionHandler(){
+        Result<Object> result = new Result<>();
+        result.setMsg("输入数据违法");
+        result.setCode(501);
+        return result;
     }
 
 }

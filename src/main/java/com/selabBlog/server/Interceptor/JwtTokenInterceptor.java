@@ -53,7 +53,7 @@ public class JwtTokenInterceptor implements HandlerInterceptor {
 //            response.setStatus(401);
 //            return false;
 //        }
-        BaseContext.setCurrentId(1L);
+        BaseContext.setCurrentId(3L);
         return true;
     }
 }
