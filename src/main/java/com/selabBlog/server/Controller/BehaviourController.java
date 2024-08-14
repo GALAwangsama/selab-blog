@@ -37,7 +37,7 @@ public class BehaviourController {
     @Resource
     private CommentService commentService;
 
-    //TODO 点赞，取消点赞
+    //点赞，取消点赞
     @PostMapping("/likeOperate")
     public Result isLike(@RequestBody IsLikeDTO isLikeDTO){
         if(!(isLikeDTO.getIsLike() == 0) && !(isLikeDTO.getIsLike() == 1) || !(isLikeDTO.getArticleId() > 0)){
@@ -86,7 +86,7 @@ public class BehaviourController {
         }
     }
 
-    //TODO 查看所有评论
+    //查看所有评论
     @GetMapping("/listComment/{id}")
     public Result<List<SelectCommentVO>> selectComment(@PathVariable Long id){
         if(!(id > 0)){
@@ -107,7 +107,7 @@ public class BehaviourController {
         return Result.success(selectCommentVOList);
     }
 
-    //TODO 新增评论
+    //新增评论
     @PostMapping("/addComment")
     public Result addComment(@RequestBody AddCommentDTO addCommentDTO){
         if(!(addCommentDTO.getArticleId() > 0)){
@@ -128,7 +128,7 @@ public class BehaviourController {
         return Result.success();
     }
 
-    //TODO 删除评论
+    //删除评论
     @DeleteMapping("/deleteComment/{id}")
     public Result deleteComment(@PathVariable Long id){
         if(!(id > 0)){

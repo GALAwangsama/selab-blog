@@ -26,7 +26,7 @@ public class ArticleController {
     private ArticleService articleService;
 
 
-    //TODO 查询所有文章
+    //查询所有文章
     @GetMapping("/load")
     public Result<List<SelectVO>> load(){
 
@@ -34,7 +34,7 @@ public class ArticleController {
         return result;
     }
 
-    //TODO 查询用户的所有文章
+    //查询用户的所有文章
     @GetMapping("/selectByUserId/{uid}")
     public  Result<List<SelectVO>> selectByUserId(@PathVariable Long uid){
 
@@ -43,7 +43,7 @@ public class ArticleController {
 
     }
 
-    //TODO 新增文章
+    //新增文章
     @PostMapping("/saveArticle")
     public Result save(@RequestBody SaveArticleDTO saveArticleDTO){
         if(saveArticleDTO.getTitle() == null || saveArticleDTO.getContent() == null
@@ -63,14 +63,14 @@ public class ArticleController {
         }
     }
 
-    //TODO 选择文章
+    //选择文章
     @GetMapping("selectByArticleId/{id}")
     public Result<SelectArticleVO> selectByArticleId(@PathVariable Long id){
         Result result = articleService.selectByArticleId(id);
         return result;
     }
 
-    //TODO 删除文章
+    //删除文章
     @DeleteMapping("/deleteArticle/{id}")
     public Result delete(@PathVariable Long id){
         boolean flag = articleService.removeById(id);
@@ -81,7 +81,7 @@ public class ArticleController {
         }
     }
 
-    //TODO 修改文章
+    //修改文章
     @PutMapping("/updateArticle")
     public Result update(@RequestBody UpdateDTO updateDTO){
         Article article = BeanUtil.copyProperties(updateDTO, Article.class);
@@ -95,7 +95,7 @@ public class ArticleController {
         }
     }
 
-    //TODO 查询文章详情
+    //查询文章详情
     @GetMapping("/articleDetails/{aid}")
     public Result<SelectAllVO> details(@PathVariable Long aid){
 

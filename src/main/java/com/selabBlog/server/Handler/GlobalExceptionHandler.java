@@ -33,7 +33,7 @@ public class GlobalExceptionHandler {
         return Result.error("未知异常");
     }
 
-    //TODO 解决sql异常不被拦截的问题
+
     /**
      * 处理SQL异常
      * @param ex
