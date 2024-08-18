@@ -30,7 +30,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler
     public Result exceptionHandler(BaseException ex){
         log.error("异常信息：{}", ex.getMessage());
-        return Result.error("未知异常");
+        return Result.error(ex.getMessage());
     }
 
 

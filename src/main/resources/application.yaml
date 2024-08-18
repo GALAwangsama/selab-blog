@@ -12,10 +12,17 @@ spring:
     url: jdbc:mysql://${blog.datasource.host}:${blog.datasource.port}/${blog.datasource.database}?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
     username: ${blog.datasource.username}
     password: ${blog.datasource.password}
+
   jackson:
     default-property-inclusion: non_null # JSON处理时忽略非空字段
+  data:
+    redis:
+      host: ${blog.redis.host}
+      port: ${blog.redis.port}
+      password: ${blog.redis.password}
+      database: ${blog.redis.database}
 mybatis-plus:
   type-aliases-package: com/selabBlog/pojo # 别名扫描包
 logging:
   level:
-    com.hmdp: debug
+    com.selab-blog: debug

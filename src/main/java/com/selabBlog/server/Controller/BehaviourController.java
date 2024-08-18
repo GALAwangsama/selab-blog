@@ -25,7 +25,7 @@ import java.util.Objects;
 
 @RestController
 @Slf4j
-@RequestMapping("/behavior")
+@RequestMapping("/behaviour")
 public class BehaviourController {
 
 

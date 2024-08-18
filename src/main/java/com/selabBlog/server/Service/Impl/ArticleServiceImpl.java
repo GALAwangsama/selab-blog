@@ -48,6 +48,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         if (selectArticleVO == null){
             return Result.error("选择文章失败");
         }else {
+            selectArticleVO.setId(id);
             return Result.success(selectArticleVO);
         }
     }

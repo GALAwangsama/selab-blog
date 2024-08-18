@@ -17,20 +17,21 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-        article_id,title,content,
-        user_id,image,publish_time,
-        update_time,article_like,comment_count
+
+        article_id, title, content,
+        user_id, image, publish_time,
+        update_time, article_like, comment_count
     </sql>
     <!--分页查询所有文章-->
     <select id="showLoad" resultType="map">
-        select article_id id,title,content,username,image,article_like articleLike
+        select article_id id,title,content,user_name,image,article_like articleLike
         from article a
                  left join user u on u.user_id = a.user_id
     </select>
     <!--显示文章详情-->
     <select id="showArticleDetails" resultType="com.selabBlog.pojo.VO.SelectVO">
         select article_id id,title,content,
-               a.user_id,username,image,publish_time publishTime,
+               a.user_id,user_name,image,publish_time publishTime,
                article_like articleLike,comment_count commentCount
         from article a
                  left join user u on a.user_id = u.user_id
@@ -39,15 +40,15 @@
     <!--查询用户所有文章-->
     <select id="showSelectByUserId" resultType="map">
         select article_id id,title,content,
-               username,image,article_like articleLike
+               user_name,image,article_like articleLike
         from article a
                  left join user u on u.user_id = a.user_id
         where a.user_id = #{uid}
     </select>
     <!--根据文章id选择文章-->
     <select id="selectByArticleId" resultType="com.selabBlog.pojo.VO.SelectArticleVO">
-        select title,content,image from article a
-                left join user u on a.user_id = u.user_id
+        select article_id,a.user_id,user_name,article_like,comment_count,publish_time, title,content,image from article a
+                                                                                                                    left join user u on a.user_id = u.user_id
         where article_id = #{id}
     </select>
 </mapper>
