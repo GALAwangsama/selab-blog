@@ -47,6 +47,7 @@ public class CaptchaImageController {
         String code = Captcha.getCode();
         //将验证码转为字符串
         String image = Captcha.getImageBase64();
+        
         //生成随机uuid
         String uuid = UUID.randomUUID().toString();
         //将验证码code，uuid存到redis中

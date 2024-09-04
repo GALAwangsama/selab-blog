@@ -10,7 +10,7 @@ public class CommonConstant {
 
     public static final String FILE_ISNULL = "文件为空";
 
-    public static final String URL = "http://localhost:8888/uploads/";
+    public static final String URL = "http://localhost//uploads/";
 
 
 
